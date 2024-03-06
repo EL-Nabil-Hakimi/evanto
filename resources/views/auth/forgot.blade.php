@@ -52,16 +52,16 @@
               <div class="text-center mb-5">
                 <h3 class="text-uppercase">Reset <strong>password</strong></h3>
               </div>
-              <form action="/signin" method="post">
+              <form action="/checkemail" method="post">
 
                 @csrf
                 <div class="form-group first">
                   <label for="username">Email</label>
-                  <input type="text" class="form-control" placeholder="your-email@gmail.com" id="username">
+                  <input type="text" name="email" class="form-control" placeholder="your-email@gmail.com" id="username">
                 </div>              
 
-                <input type="Reset Password" value="Reset Password" class="btn btn-block py-2 btn-primary">
-                <a href="register" class="btn btn-block py-2 btn-secondary" style="color: white">Back to login</a>         
+                <input type="submit" value="Reset Password" class="btn btn-block py-2 btn-primary">
+                <a href="/" class="btn btn-block py-2 btn-secondary" style="color: white">Back to login</a>         
               </form>
             </div>
           </div>

@@ -16,9 +16,14 @@ class ForgotPassMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+
+     public $user ; 
+
+    public function __construct($user)
     {
         //
+        $this->user = $user ; 
+
     }
 
     /**
@@ -27,7 +32,7 @@ class ForgotPassMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Forgot Pass Mail',
+            subject: 'EVENTO reset password',
         );
     }
 
@@ -37,7 +42,10 @@ class ForgotPassMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            markdown: 'Auth.msgEmail',
+            with: [
+                'user' => $this->user,
+            ],        
         );
     }
 
