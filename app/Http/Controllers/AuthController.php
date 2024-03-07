@@ -11,18 +11,22 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 
+
 class AuthController extends Controller
 {
 
 
     protected $utilisateur;
-    public function __construct(){
+    public function __construct()
+    {
         $this->utilisateur = new User();
     }
-    public function loginpage(){
+    public function loginpage()
+    {
             return view('auth.login');
     } 
-    public function registerpage(){
+    public function registerpage()
+    {
             return view('auth.register');
     }
     
@@ -89,35 +93,40 @@ class AuthController extends Controller
 
             $role_id = $utilisateur->role_id ;
             if($role_id == 1){
-                return redirect()->to('/index');
+                return redirect()->to('/dashboardpage');
             }
             if($role_id == 2){
-                return redirect()->to('/home');
+                return redirect()->to('/event');
             }
             else {                
                 return redirect()->to('/index');    
             }
             
         } else {
-            return redirect()->to('/login')->withErrors(['email' => 'Email or password incorrect']);
+            return redirect()->to('/')->withErrors(['email' => 'Email or password incorrect'])->withInput();
         }
     }
 
-    public function forgotpage(){
+    public function forgotpage()
+    {
         return view('Auth.forgot');
     }
-    public function reset($token){
+
+    public function changepass($token)
+    {
         $checktoken = $this->utilisateur->where('remember_token'  , $token)->first();
         if(!empty($checktoken)){
                    
-            return view('Auth.reset');
+            return view('auth.changepass');
         }
 
         else{
             abort(403);
         }
     }
-    public function reset_pass($token , Request $request){
+
+    public function reset_pass($token , Request $request)
+    {
 
         $this->validate($request, [
             'pass' => 'required|string|min:8',
@@ -133,7 +142,7 @@ class AuthController extends Controller
                 $checktoken->remember_token = Str::random(60);
                 $checktoken->password = Hash::make($request->pass);
                 $checktoken->save();
-                return redirect('/login')->with("message_green" , "Le Mot De pass a ete changer avec succes");
+                return redirect('/')->with("msg" , "Le Mot De pass a ete changer avec succes");
             }
 
             else{
@@ -142,21 +151,20 @@ class AuthController extends Controller
         
     }
 
-    // public function forgot(Request $request){
-    //      $checkemail = $this->utilisateur->where('email'  , $request->email)->first();
-    //      if(!empty($checkemail)){
-
-    //         $checkemail->remember_token = Str::random(60);
-    //         $checkemail->save();
+    public function checkemail(Request $request)
+    {
+        $checkemail = $this->utilisateur->where('email', $request->email)->first();
+    
+        if (!empty($checkemail)) {
+            $checkemail->remember_token = Str::random(60);
+            $checkemail->save();
             
-    //         Mail::to($checkemail->email)->send(new ForgotPassMail($checkemail));
+            Mail::to($checkemail->email)->send(new ForgotPassMail($checkemail));
             
-    //         return back()->with('message', 'check voter email');
-
-    //      }
-    //      else{
-    //         return redirect('/forgotpage')->with('message', 'Email pas Exist');
-    //      }
-         
-    //     }
+            return back()->with('msg', 'Check your email for the password reset link.');
+        } else {
+            return redirect('/resetpass')->with('msg', 'Email does not exist.');
+        }
+    }
+    
 }

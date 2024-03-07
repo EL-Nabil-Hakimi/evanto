@@ -73,11 +73,11 @@
                 @csrf
                 <div class="form-group first">
                   <label for="username">Username</label>
-                  <input type="text" class="form-control" placeholder="your-email@gmail.com" id="username">
+                  <input type="text" name="email" class="form-control" placeholder="your-email@gmail.com" value="{{old('email')}}" id="username">
                 </div>
                 <div class="form-group last mb-3">
                   <label for="password">Password</label>
-                  <input type="password" class="form-control" placeholder="Your Password" id="password">
+                  <input type="password" name="password" class="form-control" placeholder="Your Password" id="password">
                 </div>
                 
                 <div class="d-sm-flex mb-5 align-items-center">
@@ -85,7 +85,7 @@
                     <input type="checkbox" checked="checked"/>
                     <div class="control__indicator"></div>
                   </label>
-                  <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span> 
+                  <span class="ml-auto"><a href="/resetpass" class="forgot-pass">Forgot Password</a></span> 
                 </div>
 
                 <input type="submit" value="Log In" class="btn btn-block py-2 btn-primary">
@@ -96,7 +96,7 @@
                 
                 <div class="">
                 <a href="#" class="btn btn-block py-2 btn-facebook">
-                  <span class="icon-facebook mr-3"></span> Login with facebook
+                  <span class="icon-facebook mr-3"></span>Login with facebook
                 </a>
                 <a href="#" class="btn btn-block py-2 btn-google"><span class="icon-google mr-3"></span> Login with Google</a>
                 </div>

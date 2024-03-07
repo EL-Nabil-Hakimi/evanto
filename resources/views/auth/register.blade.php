@@ -92,7 +92,6 @@
                     <input type="checkbox" checked="checked"/>
                     <div class="control__indicator"></div>
                   </label>
-                  <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span> 
                 </div>
 
                 <input type="submit" value="Register" class="btn btn-block py-2 btn-primary">
@@ -103,7 +102,7 @@
               </form>
             </div>
           </div>
-        </div>
+        </div>  
       </div>
     </div>
 
