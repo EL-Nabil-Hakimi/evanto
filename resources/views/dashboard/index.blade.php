@@ -10,6 +10,13 @@
 
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
 </head>
+<?php
+
+$user  = session()->get('role_id');
+
+?>
+
+
 
 <style>
   /* Logo styles */
@@ -58,7 +65,7 @@
                 <span class="hide-menu">Home</span>
               </a>
             </li>
-
+            @if($user == 1)
             <li class="sidebar-item">
               <a class="sidebar-link" href="/dashboardpage" aria-expanded="false">
                 <span>
@@ -97,14 +104,14 @@
                 <span class="hide-menu">Events</span>
               </a>
             </li>
-
+            @else
             
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
+              <a class="sidebar-link" href="dashboardpageOrg" aria-expanded="false">
                 <span>
                   <i class="bi bi-soundwave"></i>                
                 </span>
-                <span class="hide-menu">My statistic</span>
+                <span class="hide-menu">Dashboard</span>
               </a>
             </li>
 
@@ -126,7 +133,7 @@
               </a>
             </li>
 
-            
+            @endif
             
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>

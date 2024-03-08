@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckSessionMiddleware
+class Organisateur
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function Admin(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         $user_id = Session::get('user_id');
         $role_id = Session::get('role_id');
@@ -23,7 +23,7 @@ class CheckSessionMiddleware
             return redirect('/');
         }
         else
-        if($role_id == 1){
+        if($role_id == 2){
             
             return $next($request);
         }

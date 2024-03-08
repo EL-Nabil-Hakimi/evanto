@@ -1,4 +1,7 @@
 <header class="site-header">
+
+    <?php $usercheck = session('user_id') ?>
+
     <div class="header-bar">
         <div class="container-fluid">
             <div class="row align-items-center">
@@ -28,9 +31,15 @@
                 </div><!-- .col -->
 
                 <div class="col-lg-3 d-none d-lg-block order-2 order-lg-3">
-                    <div class="buy-tickets">
-                        <a class="btn gradient-bg" href="/">Register</a>
-                    </div><!-- .buy-tickets -->
+                    @if($usercheck == null)
+                            <div class="buy-tickets">
+                                <a class="btn gradient-bg" href="/">Register</a>
+                            </div><!-- .buy-tickets -->
+                    @else 
+                            <div class="buy-tickets">
+                                <a class="btn gradient-bg" href="/">Logout</a>
+                            </div><!-- .buy-tickets -->
+                    @endif
                 </div><!-- .col -->
             </div><!-- .row -->
         </div><!-- .container-fluid -->
