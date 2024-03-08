@@ -100,7 +100,7 @@
                         <td>{{ $res->title }}</td>
                         <td>{{ $res->date }}</td>
                         <td>
-                            @if($res->status == 1)
+                            @if($res->status == 1 || $res->accepte == 0)
                             <span class="badge bg-success  p-2 ">Complete</span>
                             @elseif($res->status == 0)
                                 <span class="badge bg-warning p-2">Pending</span>
@@ -109,7 +109,7 @@
                             @endif
                         </td>
                         <td style="text-align: center;">
-                            @if($res->status == 1)
+                            @if($res->status == 1 || $res->accepte ==0) 
                                 <a href="/ticket/{{$res->id}}/{{$res->user_id}}" class="btn btn-primary" style="display: inline-block; padding: 8px 16px; border-radius: 4px; background-color: #007bff; color: #fff; text-decoration: none;">
                                     <i class="bi bi-download" style="font-size: 1.2rem;"></i> 
                             @endif

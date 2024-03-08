@@ -34,18 +34,28 @@ Route::middleware(['web', CheckSessionMiddleware::class])->group(function () {
     Route::get('/ArchivEvent/{id}', [EventController::class, 'ArchivEvent']);
     Route::post('/addevent', [EventController::class, 'addevent']);
     Route::post('/EditEvent', [EventController::class, 'EditEvent']);
+    
+    
+    Route::get("/reservations"  , [ReservationController::class, 'indexOrg']);
+    Route::get("/accept/{id}"  , [ReservationController::class, 'accept']);
+    Route::get("/reject/{id}"  , [ReservationController::class, 'reject']);
+    Route::get("/reservation"  , [ReservationController::class, 'index']);
+    Route::post('/create', [ReservationController::class, 'create']);
+    
+    Route::get('/ArchivEventorg/{id}', [EventController::class, 'ArchivEventOrg']);
+    Route::get('/unarchiveorg/{id}', [EventController::class, 'unarchiveorg']);
+    
+    Route::get("/acceptevent/{id}"  , [EventController::class, 'acceptEvent']);
+    Route::get("/rejectevent/{id}"  , [EventController::class, 'rejectEvent']);
+
 });
+
 Route::get('/index', [UserController::class, 'index']);
 Route::get('/soloevent', [UserController::class, 'getevent']);
 Route::get('/categories/{categoryId}/events/{textsearch}', [CategoryController::class, 'EventsByCategory']);
 
-Route::post('/create', [ReservationController::class, 'create']);
 
-Route::get("/reservation"  , [ReservationController::class, 'index']);
 
-Route::get("/reservations"  , [ReservationController::class, 'indexOrg']);
-Route::get("/accept/{id}"  , [ReservationController::class, 'accept']);
-Route::get("/reject/{id}"  , [ReservationController::class, 'reject']);
 
 
 

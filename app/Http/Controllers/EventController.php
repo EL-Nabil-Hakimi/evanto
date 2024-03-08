@@ -22,24 +22,20 @@ class EventController extends Controller
         $events = DB::table('events')
                 ->join('categories', 'events.category_id', '=', 'categories.id')
                 ->select('events.*', 'categories.id as category_idd' , 'categories.name as category_name')
-                ->where('events.status' , '=', 0)
-                ->orderBy('events.id', 'desc')
+                ->orderBy('events.updated_at', 'desc')
                 ->paginate(10);
 
         $categories = $this->category->all();
         $count = $this->event->count();
-        return view('dashboard.layouts.event' , compact('count', 'events' , 'categories'));
+        return view('dashboard.layouts.eventadmin' , compact('count', 'events' , 'categories'));
     }
-
-
 
     public function eventpageorg(){
         $events = DB::table('events')
                     ->join('categories', 'events.category_id', '=', 'categories.id')
                     ->select('events.*', 'categories.id as category_idd', 'categories.name as category_name')
-                    ->where('events.status', '=', 0)
                     ->where('events.user_id', '=', Session::get('user_id'))
-                    ->orderBy('events.id', 'desc')
+                    ->orderBy('events.updated_at', 'desc')
                     ->paginate(10);
 
         $categories = $this->category->all();
@@ -136,8 +132,39 @@ class EventController extends Controller
     
     public function ArchivEvent($id){
         $event = $this->event->find($id);
-        $event->status = 1;
+        $event->status = 4;
         $event->update();
         return redirect('/eventpage')->with('delmsg', 'Event Archived with successfully.');
     }
+    public function ArchivEventOrg($id){
+        $event = $this->event->find($id);
+        $event->status = 1;
+        $event->update();
+        return redirect('/eventpageorg')->with('delmsg', 'Event Archived with successfully.');
+    }
+    public function unarchiveorg($id){
+        $event = $this->event->find($id);
+        $event->status = 0;
+        $event->update();
+        return redirect('/eventpageorg')->with('delmsg', 'Event Archived with successfully.');
+    }
+
+
+
+    public function AcceptEvent($id){
+        $event = $this->event->find($id);
+        $event->status = 2;
+        $event->update();
+        return redirect('/eventpage')->with('msg', 'Event Accepted with successfully.');
+    }
+    
+    public function RejectEvent($id){
+        $event = $this->event->find($id);
+        $event->status = 3;
+        $event->update();
+        return redirect('/eventpage')->with('delmsg', 'Event Rejected with successfully.');
+    }
+
+
+
 }   

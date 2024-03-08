@@ -52,7 +52,7 @@
             </li>
 
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
+              <a class="sidebar-link" href="/index" aria-expanded="false">
                 <span>
                   <i class="bi bi-house-fill"></i>                  </span>
                 <span class="hide-menu">Home</span>

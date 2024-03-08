@@ -22,19 +22,19 @@ class ReservationController extends Controller
     } 
     public function index(){
         $user_id = Session::get('user_id');
-        $reservations = Reservation::select( 'events.id as id' , 'events.title as title'  , 'events.date as date' , 'reservations.id as user_id' , 
+        $reservations = Reservation::select( 'events.id as id' , 'events.title as title'  , 'events.date as date' ,'events.acceptation as accepte', 'reservations.id as user_id' , 
          'reservations.status as status'  )
             ->join('events', 'reservations.event_id', '=', 'events.id')
             ->join('users', 'reservations.user_id', '=', 'users.id')
             ->where('users.id', $user_id)
             ->orderBy('reservations.id', 'desc')
             ->get();
-        
+        // dd($reservations);
         return view('user.reservation' , compact('reservations'));
     }
     public function indexOrg(){
         $user_id = Session::get('user_id');
-        $reservations = Reservation::select( 'events.id as id' , 'events.title as title'  ,
+        $reservations = Reservation::select( 'events.id as id' ,'events.acceptation as accepte', 'events.title as title'  ,
          'events.date as date' , 'reservations.id as user_id' ,  'reservations.status as status'
          ,'reservations.fname as fname' ,  'reservations.lname as lname' , 'reservations.id as res_id')
             ->join('events', 'reservations.event_id', '=', 'events.id')

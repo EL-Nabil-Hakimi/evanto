@@ -78,7 +78,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    @if($res->status == 1)
+                                    @if($res->status == 1 || $res->accepte == 0)
                                         <span class="badge bg-success  p-2 ">Complete</span>
                                     @elseif($res->status == 0)
                                         <span class="badge bg-warning p-2">Pending</span>
@@ -88,10 +88,10 @@
                                 </td>
                                 
                                 <td>
-                                    @if($res->status != 1 && $res->status !=2)
+                                    @if($res->status != 1 && $res->status !=2 && $res->accepte != 0)
                                         <a href="/accept/{{$res->res_id}}" type="button" class="btn btn-success btn-sm" title="Accept">
                                             <i class="fas fa-check"></i> Accept
-                                        </a>                        
+                                        </a>
                                         <a href="/reject/{{$res->res_id}}" type="button" class="btn btn-danger btn-sm" title="Reject">
                                             <i class="fas fa-times"></i> Reject
                                         </a>

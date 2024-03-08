@@ -45,10 +45,7 @@
     }
 
 </style>
-<div id="addbtn">
-    <img src="assets/images/logos/plus.png" alt="" data-bs-toggle="modal"
-    data-bs-target="#AddEvent">
-</div>
+
     <!--  Header End -->
     <div class="container-fluid">
         <div class="card">
@@ -69,7 +66,7 @@
                     
                   
                   <div class="row justify-content-center mb-3" >
-                    <div class="col-md-12 col-xl-10">
+                      <div class="col-md-12 col-xl-10">
                         @if($event->status == 0)
                         <div  id="msgtop" style="background-color: rgb(66, 95, 210);">Panding</div>
                         @elseif($event->status == 1 || $event->status == 4)
@@ -79,6 +76,7 @@
                         @elseif($event->status == 3)
                         <div  id="msgtop" style="background-color: rgb(233, 34, 34);">Regected</div>
                         @endif
+
                       <div class="card shadow-0 border rounded-3" id="event1">
                         <div class="card-body">
                           <div class="row">
@@ -143,19 +141,30 @@
                                     <h4 class="text-secondary mb-1 me-1">{{$event->price}} DH</h4>
                                     @endif
                             </div>
+                            
+                            
                               <h6 class="text-success"></h6>
                               <div class="d-flex flex-column mt-4">
                                 <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#detailEmail{{ $event->id }}">Details</button>
-                                <button class="btn btn-warning btn-sm mt-2" type="button" data-bs-toggle="modal" data-bs-target="#EditEmail{{ $event->id }}">Edit</button>
-                                @if($event->status != 1 && $event->status !=3 && $event->status !=4)
-                                <button class="btn btn-danger btn-sm mt-2" type="button" data-bs-toggle="modal" 
+                                
+                                
+                                <button class="btn btn-warning btn-sm mt-2" type="button" data-bs-toggle="modal" 
                                         data-bs-target="#DeleteEmail" 
                                         data-category-id="{{ $event->id }}"
                                         data-category-name="{{ $event->title }}">Archive</button>
-                                @elseif($event->status !=3 && $event->status !=4)
-                                <a href="/unarchiveorg/{{$event->id}}" class="btn btn-success btn-sm mt-2" >Unarchive </a>
-                                @endif
+
                               </div>
+
+                            
+                              <div class="d-flex justify-content-end mt-6">
+                                <a  href="/acceptevent/{{$event->id}}" class="btn btn-success btn-circle me-2" type="button" >
+                                    <i class="bi bi-check-circle"></i>
+                                </a>
+                                <a href="/rejectevent/{{$event->id}}" class="btn btn-danger btn-circle" type="button" >
+                                    <i class="bi bi-x-circle"></i>
+                                </a>
+                            </div>
+                              
                             </div>
                           </div>
                         </div>
@@ -451,7 +460,7 @@
                     var button = event.relatedTarget;
                     var categoryId = button.getAttribute('data-category-id');
                     var categoryName = button.getAttribute('data-category-name');
-                    var deleteLink = '/ArchivEventorg/' + categoryId;
+                    var deleteLink = '/ArchivEvent/' + categoryId;
                     
                     modal.querySelector('#categoryName').innerText = categoryName;
                     modal.querySelector('#deleteCategoryLink').setAttribute('href', deleteLink);
