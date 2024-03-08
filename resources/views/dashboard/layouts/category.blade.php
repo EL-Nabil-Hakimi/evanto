@@ -70,11 +70,19 @@
                                 </td>    
 
                                 <td>
+                                    @if ($category->created_at)
                                     <p class="text-muted mb-0">{{ $category->created_at->format('d/m/Y') }}</p>
-                                </td>
+                                @else
+                                    <p class="text-muted mb-0">Date not available</p>
+                                @endif
+                                                                </td>
                                 <td>
+                                    @if ($category->created_at)
                                     <p class="text-muted mb-0">{{ $category->created_at->format('H:i') }}</p>
-                                </td>
+                                @else
+                                    <p class="text-muted mb-0">Time not available</p>
+                                @endif
+                                                                </td>
                                 
                                 <td>
                                     <button type="button" class="btn btn-link btn-sm btn-rounded" 

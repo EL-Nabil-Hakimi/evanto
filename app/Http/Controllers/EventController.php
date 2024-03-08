@@ -33,14 +33,14 @@ class EventController extends Controller
 
 
 
-    public function eventpageUser(){
+    public function eventpageorg(){
         $events = DB::table('events')
-                ->join('categories', 'events.category_id', '=', 'categories.id')
-                ->select('events.*', 'categories.id as category_idd' , 'categories.name as category_name')
-                ->where('events.status' , '=', 0)
-                ->where('events.user_id' , '=' , Session::get('user_id'))
-                ->orderBy('events.id', 'desc')
-                ->paginate(10);
+                    ->join('categories', 'events.category_id', '=', 'categories.id')
+                    ->select('events.*', 'categories.id as category_idd', 'categories.name as category_name')
+                    ->where('events.status', '=', 0)
+                    ->where('events.user_id', '=', Session::get('user_id'))
+                    ->orderBy('events.id', 'desc')
+                    ->paginate(10);
 
         $categories = $this->category->all();
         $count = $this->event->count();

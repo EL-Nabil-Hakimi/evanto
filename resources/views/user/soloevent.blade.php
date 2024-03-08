@@ -4,7 +4,7 @@
     <title>Hello World</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,99 +23,66 @@
 </head>
 <body class="events-news-page">
 
+ <style>
+            .entry-content ul {
+                list-style-type: none;
+                padding: 0;
+                        }
 
-    <style>
-   .entry-content ul {
-    list-style-type: none;
-    padding: 0;
-}
+            .entry-content ul li {
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                background-color: #ececec; /* Couleur de fond */
+                padding: 10px; /* Espacement intérieur */
+                border-radius: 5px; /* Coins arrondis */
+            }
 
-.entry-content ul li {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    background-color: #d5d5d5; /* Couleur de fond */
-    padding: 10px; /* Espacement intérieur */
-    border-radius: 5px; /* Coins arrondis */
-}
+            .entry-content ul li:hover{
+                background-color: #f0f0f0; /* Couleur de fond */
 
-.entry-content ul li:hover{
-    background-color: #f0f0f0; /* Couleur de fond */
+            }
 
-}
+            .entry-content ul li i {
+                margin-right: 10px;
+                color: #007bff; /* Couleur de l'icône */
+            }
 
-.entry-content ul li i {
-    margin-right: 10px;
-    color: #007bff; /* Couleur de l'icône */
-}
+            .entry-content ul li span.bi {
+                font-size: 1.2rem;
+                margin-right: 5px;
+                color: #28a745; /* Couleur de l'icône de nombre de places */
+            }
 
-.entry-content ul li span.bi {
-    font-size: 1.2rem;
-    margin-right: 5px;
-    color: #28a745; /* Couleur de l'icône de nombre de places */
-}
-
-/* Couleur de texte */
-.entry-content ul li p {
-    color: #333;
-}
+            /* Couleur de texte */
+            .entry-content ul li p {
+                color: #333;
+            }
 
 
     </style>
-<header class="site-header">
-    <div class="header-bar">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-10 col-lg-2 order-lg-1">
-                    <div class="site-branding">
-                        <div class="site-title">
-                            <a href="#"><img src="images/logo.png" alt="logo"></a>
-                        </div><!-- .site-title -->
-                    </div><!-- .site-branding -->
-                </div><!-- .col -->
 
-                <div class="col-2 col-lg-7 order-3 order-lg-2">
-                    <nav class="site-navigation">
-                        <div class="hamburger-menu d-lg-none">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div><!-- .hamburger-menu -->
 
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">About us</a></li>
-                            <li><a href="#">Events</a></li>
-                            <li><a href="#">News</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </nav><!-- .site-navigation -->
-                </div><!-- .col -->
+@include('user.layout.header')
 
-                <div class="col-lg-3 d-none d-lg-block order-2 order-lg-3">
-                    <div class="buy-tickets">
-                        <a class="btn gradient-bg" href="#">Buy Tickets</a>
-                    </div><!-- .buy-tickets -->
-                </div><!-- .col -->
-            </div><!-- .row -->
-        </div><!-- .container-fluid -->
-    </div><!-- .header-bar -->
 
-    <div class="page-header events-news-page-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <header class="entry-header">
-                        <h1 class="entry-title">Events news.</h1>
-                    </header>
-                </div>
-            </div>
-        </div>
-    </div>
-</header><!-- .site-header -->
+
+
+
 
 <div class="container">
+
+    @if(Session::has('success'))
+    <div class="alert alert-success text-center" role="alert" style="width: 50%; margin: 0 auto;">
+        {{ Session::get('success') }}
+        <a href="/reservation">Show my reservation</a>
+        </div>
+    @elseif(Session::has('error'))  
+        <div class="alert alert-danger text-center" role="alert" style="width: 50%; margin: 0 auto;">
+            {{ Session::get('error') }}
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-12">
             <article class="events-news-post">
@@ -123,14 +90,14 @@
                     <h2 class="entry-title"><a>{{$event->title}}</a></h2>
 
                     <div class="entry-meta flex align-items-center">
-                        <div class="posted-author"><a href="#">{{$user->name}}</a></div>
+                        <div class="posted-author"><a href="#">{{$admin->name}}</a></div>
 
                         <div class="post-comments"><a href="#">{{$ctgr->name}}</a></div>
                     </div>
                 </header>
 
                 <figure>
-                    <a href="#"><img src="assets/images/{{ $event->image }}" alt=""></a>
+                    <a href="#" ><img src="assets/images/{{ $event->image }}" alt=""></a>
 
                     <div class="posted-date" >
                         <span>{{ \Carbon\Carbon::parse($event->date)->format('d') }}</span>
@@ -148,7 +115,7 @@
                         <li><i class="bi bi-geo-alt"></i> Location: {{ $event->location }}.</li>
                         <li><i class="bi bi-calendar"></i> Date: {{ \Carbon\Carbon::parse($event->date)->format('l') }} {{ $event->date }}.</li>
                         <li><i class="bi bi-clock"></i> Time: {{ date('H:i', strtotime($event->time)) }}</li>
-                        <li><i class="bi bi-hourglass-split"></i> Duration: {{ $event->duration }}</li>
+                        <li><i class="bi bi-hourglass-split"></i> Duration: {{ $event->duration }} min</li>
                         @if($event->price == 0)
                             <li><i class="bi bi-currency-dollar"></i> Price: Free</li>
                         @else 
@@ -164,10 +131,14 @@
                 
             </article>
 
-
+            @if($event->total_places - $event->total_reservations > 0)
             <div class="col-md-12 col-lg-3">
-                <input class="btn gradient-bg" type="submit" value="Reservation">
+                <input class="btn gradient-bg" type="submit" value="Reservation" data-bs-toggle="modal"
+                data-bs-target="#AddEmail">
             </div>
+            @else
+                <p class="text-danger">No Places Remaining</p>
+            @endif
 
 
             
@@ -214,45 +185,84 @@
     </div>
 </div>
 
-<footer class="site-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <figure class="footer-logo">
-                    <a href="#"><img src="images/logo.png" alt="logo"></a>
-                </figure>
-
-                <nav class="footer-navigation">
-                    <ul class="flex flex-wrap justify-content-center align-items-center">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Events</a></li>
-                        <li><a href="#">News</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </nav>
-
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
-                <div class="footer-social">
-                    <ul class="flex flex-wrap justify-content-center align-items-center">
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+@include('user.layout.footer')
 
 <div class="back-to-top flex justify-content-center align-items-center">
     <span><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z"/></svg></span>
 </div>
+
+{{-- Modal Reservation $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ --}}
+<div class="modal fade" id="AddEmail" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Reservation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">    
+                @if($user != null)
+
+                <form action="/create" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <input type="hidden" value="{{$event->id}}" name="event_id">
+                        <label for="fname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter first name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter last name" required>
+                    </div>
+                    <label for="lname" class="form-label">Email for ticket</label>
+                    <div class="mb-3 form-check">
+                        <input type="radio" class="form-check-input" id="existingEmail" name="email" value="{{$user->email}}" required>
+                        <label class="form-check-label" for="existingEmail">{{$user->email}}</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="radio" class="form-check-input" id="newEmail" name="email" value="new" required>
+                        <label class="form-check-label" for="newEmail">Add New Email</label>
+                    </div>
+                    <div class="mb-3" id="newEmailSection" style="display: none;">
+                        <label for="new_email" class="form-label">New Email</label>
+                        <input type="email" class="form-control" name="new_email" id="new_email" placeholder="Enter new email" >
+                    </div>
+                
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Reservation</button>
+                    </div>
+                </form>              
+                
+                
+
+                @else
+                 
+                <h3>You mest be to Register before resirving</h3>
+                <style>
+                    .modal-footer .btn {
+                        font-size: 0.875em; /* Adjust the font size */
+                        padding: 1em 1.5em; /* Adjust the padding */
+                    }
+                </style>                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="/" type="submit" class="btn btn-primary">Register</a>
+                </div>
+            @endif
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+</script>
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/sidebarmenu.js"></script>
+<script src="../assets/js/app.min.js"></script>
+<script src="../assets/libs/simplebar/dist/simplebar.js"></script>
 
 <script type='text/javascript' src='js/jquery.js'></script>
 <script type='text/javascript' src='js/masonry.pkgd.min.js'></script>
@@ -262,6 +272,23 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script type='text/javascript' src='js/circle-progress.min.js'></script>
 <script type='text/javascript' src='js/jquery.countTo.min.js'></script>
 <script type='text/javascript' src='js/custom.js'></script>
+
+
+<script>    document.addEventListener("DOMContentLoaded", function() {
+    var existingEmailRadio = document.getElementById("existingEmail");
+    var newEmailRadio = document.getElementById("newEmail");
+    var newEmailSection = document.getElementById("newEmailSection");
+
+    existingEmailRadio.addEventListener("change", function() {
+        newEmailSection.style.display = "none";
+    });
+
+    newEmailRadio.addEventListener("change", function() {
+        newEmailSection.style.display = "block";
+    });
+});
+</script>
+
 
 </body>
 </html>

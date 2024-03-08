@@ -11,6 +11,20 @@
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
 </head>
 
+<style>
+  /* Logo styles */
+  h1.logo {
+      font-family: Arial, sans-serif; /* Choose a suitable font */
+      font-size: 36px; /* Adjust size as needed */
+      color: #3363ff; /* Choose a suitable color */
+      text-transform: uppercase; /* Make text uppercase */
+      letter-spacing: 2px; /* Add letter spacing for better readability */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+      margin: 0; /* Remove default margin */
+      padding: 20px 0; /* Add padding for spacing */
+      text-align: center; /* Center align the text */
+  }
+</style>
 <body>
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -21,14 +35,16 @@
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
           <a href="/dashboardpage" class="text-nowrap logo-img">
-            <img src="../assets/images/logos/dark-logo.png" width="180" alt="" />
+            {{-- <img src="../assets/images/logos/dark-logo.png" width="180" alt="" /> --}}
+
+            <h1 class="logo">Evento</h1>
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
           </div>
         </div>
         <!-- Sidebar navigation-->
-        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="" >
           <ul id="sidebarnav">
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -44,7 +60,7 @@
             </li>
 
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./index.html" aria-expanded="false">
+              <a class="sidebar-link" href="/dashboardpage" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -56,15 +72,25 @@
               <span class="hide-menu">Services</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
+              <a class="sidebar-link" href="/userspage" aria-expanded="false">
                 <span>
                   <i class="ti ti-article"></i>
                 </span>
                 <span class="hide-menu">Users</span>
               </a>
             </li>
+
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+              <a class="sidebar-link" href="/categorypage" aria-expanded="false">
+                <span>
+                  <i class="ti ti-cards"></i>
+                </span>
+                <span class="hide-menu">Categories</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/eventpage" aria-expanded="false">
                 <span>
                   <i class="ti ti-alert-circle"></i>
                 </span>
@@ -74,16 +100,16 @@
 
             
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
+              <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
                 <span>
-                  <i class="ti ti-cards"></i>
+                  <i class="bi bi-soundwave"></i>                
                 </span>
-                <span class="hide-menu">Categories</span>
+                <span class="hide-menu">My statistic</span>
               </a>
             </li>
 
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+              <a class="sidebar-link" href="/eventpageorg" aria-expanded="false">
                 <span>
                   <i class="bi bi-handbag"></i> 
                                 </span>
@@ -92,7 +118,7 @@
             </li>
             
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
+              <a class="sidebar-link" href="/reservations" aria-expanded="false">
                 <span>
                   <i class="ti ti-file-description"></i>
                 </span>
@@ -100,14 +126,7 @@
               </a>
             </li>
 
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
-                <span>
-                  <i class="bi bi-soundwave"></i>                
-                </span>
-                <span class="hide-menu">My statistic</span>
-              </a>
-            </li>
+            
             
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -542,6 +561,8 @@
 
 
 
+
+  
 </body>
 
 </html>

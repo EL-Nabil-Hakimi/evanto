@@ -23,6 +23,8 @@ class AuthController extends Controller
     }
     public function loginpage()
     {
+            Session::forget('user_id');
+
             return view('auth.login');
     } 
     public function registerpage()
@@ -96,7 +98,7 @@ class AuthController extends Controller
                 return redirect()->to('/dashboardpage');
             }
             if($role_id == 2){
-                return redirect()->to('/event');
+                return redirect()->to('/eventpageorg');
             }
             else {                
                 return redirect()->to('/index');    

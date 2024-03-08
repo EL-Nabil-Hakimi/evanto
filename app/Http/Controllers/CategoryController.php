@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -57,5 +58,29 @@ class CategoryController extends Controller
             return redirect()->back()->with('delmsg', 'Something went wrong');
         }
     }
+
+
+
+   
+
+    public function EventsByCategory($categoryId, $textsearch)
+    {   
+        $events = Event::query();
+
+        if ($categoryId != 0) {
+            $events->where('category_id', $categoryId);
+        }
+
+        if ($textsearch != 0) {
+            $events->where('title', 'like', '%' . $textsearch . '%')
+            ->orWhere('description', 'like', '%'. $textsearch. '%');;
+        }
+        $events = $events->latest()->get();
+
+        
+        return view('user.search.bycategory', compact('events'));
+    }  
+
+
 
 }
