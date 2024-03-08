@@ -27,7 +27,7 @@ class ReservationController extends Controller
             ->join('events', 'reservations.event_id', '=', 'events.id')
             ->join('users', 'reservations.user_id', '=', 'users.id')
             ->where('users.id', $user_id)
-            ->orderBy('reservations.id', 'desc')
+            ->orderBy('reservations.updated_at', 'desc')
             ->get();
         // dd($reservations);
         return view('user.reservation' , compact('reservations'));
@@ -40,7 +40,7 @@ class ReservationController extends Controller
             ->join('events', 'reservations.event_id', '=', 'events.id')
             ->join('users', 'events.user_id', '=', 'users.id')
             ->where('users.id', $user_id)
-            ->orderBy('reservations.id', 'desc')
+            ->orderBy('reservations.updated_at', 'desc')
             ->get();
 
         $count = $reservations->count();

@@ -147,12 +147,12 @@
                               <div class="d-flex flex-column mt-4">
                                 <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#detailEmail{{ $event->id }}">Details</button>
                                 
-                                
+                                @if($event->status != 4)
                                 <button class="btn btn-warning btn-sm mt-2" type="button" data-bs-toggle="modal" 
                                         data-bs-target="#DeleteEmail" 
                                         data-category-id="{{ $event->id }}"
                                         data-category-name="{{ $event->title }}">Archive</button>
-
+                                @endif
                               </div>
 
                             

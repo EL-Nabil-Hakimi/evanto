@@ -20,6 +20,7 @@ Route::post('/checkemail', [AuthController::class, 'checkemail']);
 
 Route::middleware(['web', CheckSessionMiddleware::class])->group(function () {
     Route::get('/dashboardpage', [UserController::class, 'dashboardpage']);
+    Route::get('/dashboardpageOrg', [UserController::class, 'dashboardpageOrg']);
     Route::get('/userspage', [UserController::class, 'userspage']);
     Route::post('/usersedit', [UserController::class, 'usersedit']);
     Route::get('/usersdelete/{id}', [UserController::class, 'usersdelete']);
@@ -43,7 +44,7 @@ Route::middleware(['web', CheckSessionMiddleware::class])->group(function () {
     Route::post('/create', [ReservationController::class, 'create']);
     
     Route::get('/ArchivEventorg/{id}', [EventController::class, 'ArchivEventOrg']);
-    Route::get('/unarchiveorg/{id}', [EventController::class, 'unarchiveorg']);
+    Route::get('/unarchiveorg/{id}', [EventController::class, 'ArchivEventOrg']);
     
     Route::get("/acceptevent/{id}"  , [EventController::class, 'acceptEvent']);
     Route::get("/rejectevent/{id}"  , [EventController::class, 'rejectEvent']);

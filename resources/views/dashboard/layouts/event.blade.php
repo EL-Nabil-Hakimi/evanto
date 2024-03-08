@@ -153,7 +153,7 @@
                                         data-category-id="{{ $event->id }}"
                                         data-category-name="{{ $event->title }}">Archive</button>
                                 @elseif($event->status !=3 && $event->status !=4)
-                                <a href="/unarchiveorg/{{$event->id}}" class="btn btn-success btn-sm mt-2" >Unarchive </a>
+                                     <a href="/unarchiveorg/{{$event->id}}" class="btn btn-success btn-sm mt-2" >Unarchive </a>
                                 @endif
                               </div>
                             </div>
