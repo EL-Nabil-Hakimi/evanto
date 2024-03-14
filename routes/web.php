@@ -48,28 +48,27 @@ Route::middleware(Admin::class)->group(function () {
 
 
 Route::middleware(Organisateur::class)->group(function () {
+
     Route::get('/dashboardpageOrg', [UserController::class, 'dashboardpageOrg']);
     Route::get('/eventpageorg', [EventController::class, 'eventpageorg']);
 
     Route::get('/ArchivEventorg/{id}', [EventController::class, 'ArchivEventOrg']);
-    Route::get('/unarchiveorg/{id}', [EventController::class, 'ArchivEventOrg']);
+    Route::get('/unarchiveorg/{id}', [EventController::class, 'unarchiveorg']);
     Route::get("/reservations"  , [ReservationController::class, 'indexOrg']);
     Route::get("/accept/{id}"  , [ReservationController::class, 'accept']);
     Route::get("/reject/{id}"  , [ReservationController::class, 'reject']);
-
-    Route::post('/addevent', [EventController::class, 'addevent']);
     Route::post('/EditEvent', [EventController::class, 'EditEvent']);
 
-
-
+    Route::post('/addevent', [EventController::class, 'addevent']);
 
 });
 
 Route::middleware(Utilisateur::class)->group(function(){
-    Route::get("/reservation"  , [ReservationController::class, 'index']);
+   
+Route::get("/reservation"  , [ReservationController::class, 'index']);
 
-    Route::post('/create', [ReservationController::class, 'create']);
-    Route::get('/ticket/{id_event}/{id_user}', [ReservationController::class, 'generateTicket']);
+Route::post('/create', [ReservationController::class, 'create']);
+Route::get('/ticket/{id_event}/{id_user}', [ReservationController::class, 'generateTicket']);
 });
 
 

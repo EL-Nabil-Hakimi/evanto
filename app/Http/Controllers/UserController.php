@@ -29,31 +29,25 @@ class UserController extends Controller
 
     // partie Admin
     public function dashboardpage(){
-        $user = $this->user->count();
+        $users = $this->user->count();
         $event = $this->event->count();
-        $ctgr = $this->ctgr->count();
-        
-        return view('dashboard.index' , compact('user', 'ctgr', 'event'));
+        $ctgr = $this->ctgr->count();   
+
+        return view('dashboard.index' , compact( 'ctgr', 'event' , 'users' ));
     }
     public function dashboardpageOrg(){
-        $event = $this->event->where('user_id', Session::get('user_id'))->count();
-        $reser = Event::select('events.*')
-            ->join('users', 'users.id', '=', 'events.user_id')
-            ->join('reservations', 'reservations.event_id', '=', 'events.id')
-            ->where('users.id', Session::get('user_id'))
-            ->get();
+        
+        $event = $this->event::where('user_id', Session::get('user_id'))->count();
 
-        $res= $reser->count();
+        $res = $this->event::where('user_id', Session::get('user_id'))->withCount('reservations')->first();
 
         return view('dashboard.layouts.static' , compact( 'event', 'res' ));    
     }
 
     public function userspage(){
-        $users = $this->user->with("role")->paginate(10);
-        $count = $this->user->count();
-        $roles = $this->roles->all();
-        // dd($count);
-        return view('dashboard.layouts.users' , compact('users' , 'count' , "roles"));
+        $users = User::with("role")->paginate(10);
+        $roles = $this->roles->all();   
+        return view('dashboard.layouts.users' , compact('users'  , "roles"));
     }
 
     public function usersedit(Request $request){
@@ -85,7 +79,7 @@ class UserController extends Controller
     // partie user
     public function index(){
 
-        $events = $this->event->where('status' , 2)->latest()->get();
+        $events = $this->event->where('status' , 2)->latest()->paginate(9);
         $ctrgs = $this->ctgr->all();
   
         return view('/user.index' , compact('events' , 'ctrgs'));
@@ -96,13 +90,11 @@ class UserController extends Controller
     {
         try{
         $id = $request->id;
-        $event = $this->event->where('id',$id)->where('status' , 2)->first();
-        $ctgr = $this->ctgr->find($event->category_id); 
-        $admin = $this->user->find($event->user_id);
-        $id = Session::get('user_id');
-        $user = $this->user->find($id);
+
+        $event = Event::with('category', 'user')->where('id', $id)->where('status', 2)->first();
+
         
-        return view('user.soloevent', compact('event' , 'ctgr' , 'user' , 'admin'));        
+        return view('user.soloevent', compact('event' ));        
     }
     catch(\Exception $e){
         return redirect()->back()->with("msg", "error");

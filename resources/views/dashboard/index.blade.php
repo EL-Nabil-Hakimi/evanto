@@ -220,8 +220,9 @@ $user  = session()->get('role_id');
                         <div class="row align-items-start">
                             <div class="col-8">
                                 <h5 class="card-title mb-3 fw-semibold">All Users</h5>
-                                <h4 class="fw-semibold mb-3">{{$user}}</h4>
-                            </div>
+                                <h4 class="fw-semibold mb-3">{{$users}}</h4>
+
+                            </div>  
                             <div class="col-4 text-end">
                                 <i class="bi bi-people-fill" style="font-size: 2rem;"></i>
                             </div>
@@ -238,6 +239,7 @@ $user  = session()->get('role_id');
                             <div class="col-8">
                                 <h5 class="card-title mb-3 fw-semibold">All Events</h5>
                                 <h4 class="fw-semibold mb-3">{{$event}}</h4>
+                                
                             </div>
                             <div class="col-4 text-end">
                                 <i class="bi bi-calendar3" style="font-size: 2rem;"></i>

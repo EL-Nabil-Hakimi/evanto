@@ -19,11 +19,9 @@ class EventController extends Controller
     }
 
     public function eventpage(){
-        $events = DB::table('events')
-                ->join('categories', 'events.category_id', '=', 'categories.id')
-                ->select('events.*', 'categories.id as category_idd' , 'categories.name as category_name')
-                ->orderBy('events.updated_at', 'desc')
-                ->paginate(10);
+            $events = Event::with('category')
+            ->orderBy('updated_at', 'desc')
+            ->paginate(5);
 
         $categories = $this->category->all();
         $count = $this->event->count();
@@ -31,12 +29,10 @@ class EventController extends Controller
     }
 
     public function eventpageorg(){
-        $events = DB::table('events')
-                    ->join('categories', 'events.category_id', '=', 'categories.id')
-                    ->select('events.*', 'categories.id as category_idd', 'categories.name as category_name')
-                    ->where('events.user_id', '=', Session::get('user_id'))
-                    ->orderBy('events.updated_at', 'desc')
-                    ->paginate(10);
+        $events = Event::with('category')
+                ->where('user_id' ,  Session::get('user_id'))
+                ->orderBy('updated_at', 'desc')
+                ->paginate(5);
 
         $categories = $this->category->all();
         $count = $this->event->count();
@@ -81,9 +77,8 @@ class EventController extends Controller
         $event->category_id = $request->category;
         $event->save();
     
-        return redirect('/eventpage')->with('msg', 'Event added successfully.');
+        return redirect('/eventpageorg')->with('msg', 'Event added successfully.');
     }
-
 
     public function EditEvent(Request $request)
     {
@@ -120,15 +115,15 @@ class EventController extends Controller
             $event->total_places = $request->total_places;
             $event->category_id = $request->category;
             $event->acceptation = $request->acceptation;
+            $event->status = 0;
             $event->save();
     
-            return redirect('/eventpage')->with('msg', 'Event updated successfully.');
+            return redirect('/eventpageorg')->with('msg', 'Event updated successfully.');
         } else {
 
             return redirect()->back()->with('delmsg', 'Event not found.');
         }
-    }
-    
+    }    
     
     public function ArchivEvent($id){
         $event = $this->event->find($id);
@@ -146,25 +141,22 @@ class EventController extends Controller
         $event = $this->event->find($id);
         $event->status = 0;
         $event->update();
-        return redirect('/eventpageorg')->with('delmsg', 'Event Archived with successfully.');
+        return redirect('/eventpageorg')->with('delmsg', 'Event Unarchived with successfully.');
     }
-
 
 
     public function AcceptEvent($id){
         $event = $this->event->find($id);
         $event->status = 2;
         $event->update();
-        return redirect('/eventpage')->with('msg', 'Event Accepted with successfully.');
+        return redirect()->back()->with('msg', 'Event Accepted with successfully.');
     }
     
     public function RejectEvent($id){
         $event = $this->event->find($id);
         $event->status = 3;
         $event->update();
-        return redirect('/eventpage')->with('delmsg', 'Event Rejected with successfully.');
+        return redirect()->back()->with('delmsg', 'Event Rejected with successfully.');
     }
-
-
 
 }   

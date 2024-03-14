@@ -5,13 +5,13 @@
 <style>
     #addbtn{
         position: fixed;
-        right: 4em;
-        bottom: 4em;
+        right: 2em;
+        bottom: 2em;
         z-index: 2;
     }
     #addbtn img{
-        width: 5em;
-        height: 5em;
+        width: 4em;
+        height: 4em;
         border-radius: 50%;
         box-shadow: 0px 0px 5px 2px black;
         transition: 0.3s;
@@ -92,8 +92,15 @@
                                   </div>
                                 </a>
                               </div>
+                              
                             </div>
+                            
                             <div class="col-md-6 col-lg-6 col-xl-6">
+
+                                <span style="color: rgb(33, 56, 233)"><i class="bi bi-hourglass-split"></i> {{ $event->created_at->diffForHumans() }}</span>
+                                <br>  
+
+
                               <h5>{{$event->title}}</h5>
                               <div class="d-flex flex-row">
                                 <div class="text-danger mb-1 me-2">
@@ -129,6 +136,8 @@
                                 @else                                                            
                                     <span>Acceptation : automatique des réservations</span>
                                 @endif
+
+                              
                                                                
                               </div>
                              
@@ -162,7 +171,6 @@
                       </div>
                     </div>
                   </div>
-
 
 
                   <div class="modal fade" id="detailEmail{{ $event->id }}" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -210,7 +218,7 @@
                                     <strong>Total Places Available:</strong> {{ $event->total_places - $event->total_reservations }}
                                 </div>
                                 <div class="mb-3">
-                                    <strong>Category:</strong> {{ $event->category_name }} 
+                                    <strong>Category:</strong> {{ $event->category->name }} 
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -279,12 +287,11 @@
                                             
                                             <option disabled selected>Categorhy...</option>
                                             @foreach ($categories as $category)
-                                            @if($category->id == $event->category_idd)
+                                            @if($category->id == $event->category->id)
                                                  <option value="{{$category->id}}" selected>{{$category->name}}</option>
                                                  @else 
                                                  <option value="{{$category->id}}" >{{$category->name}}</option>
                                                  @endif
-
                                             @endforeach
                                         </select>
                                     </div>
@@ -436,7 +443,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
                     </div>
                 </form>
                 </div>

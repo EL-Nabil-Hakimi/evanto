@@ -66,18 +66,18 @@
           <div class="col-md-12">
             <div class="form-block mx-auto">
               <div class="text-center mb-5">
-                <h3 class="text-uppercase">Login to <strong>Event</strong></h3>
+                <h3 class="text-uppercase">Login to <a style="color: rgb(0, 85, 197) ; text-decoration:none" href="/index" title="Go to home"><strong>Event</strong></a></h3>
               </div>
               <form action="/signin" method="post">
 
                 @csrf
                 <div class="form-group first">
                   <label for="username">Username</label>
-                  <input type="text" name="email" class="form-control" placeholder="your-email@gmail.com" value="{{old('email')}}" id="username">
+                  <input type="text" name="email" class="form-control" placeholder="your-email@gmail.com" value="{{old('email')}}" id="email">
                 </div>
                 <div class="form-group last mb-3">
                   <label for="password">Password</label>
-                  <input type="password" name="password" class="form-control" placeholder="Your Password" id="password">
+                  <input type="password" name="password" class="form-control" placeholder="Your Password" id="pass">
                 </div>
                 
                 <div class="d-sm-flex mb-5 align-items-center">
@@ -88,7 +88,8 @@
                   <span class="ml-auto"><a href="/resetpass" class="forgot-pass">Forgot Password</a></span> 
                 </div>
 
-                <input type="submit" value="Log In" class="btn btn-block py-2 btn-primary">
+                <input type="submit" value="Log In" class="btn btn-block py-2 btn-primary" >
+
                 <a href="register" class="btn btn-block py-2 btn-secondary" style="color: white">Register</a>
 
                 <span class="text-center my-3 d-block">or</span>
@@ -122,6 +123,20 @@
     $(document).ready(function(){
         $('.toast').toast('show');
     });
+
+    var check = function () {
+
+    event.preventDefault();
+
+    var email = document.getElementById('email').value;
+
+    var pass = document.getElementById('pass').value;
+
+    if (email == "" || pass == "") {
+        confirm('Can you type email and password please');
+    }
+  }
+
 </script>
     
 
@@ -130,4 +145,10 @@
     <script src="auth/js/bootstrap.min.js"></script>
     <script src="auth/js/main.js"></script>
   </body>
+
+
+  <script>
+   
+
+  </script>
 </html>

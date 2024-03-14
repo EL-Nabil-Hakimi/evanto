@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ReservationAccepted;
 use App\Models\Event;
 use App\Models\Reservation;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class ReservationController extends Controller
@@ -68,35 +70,39 @@ class ReservationController extends Controller
 
         $this->validate($request, $rules);
 
-        $rescheck = $this->rese->where('user_id', Session::get('user_id'))
-          ->where('event_id', $request->event_id)
-          ->first();
-
-          if(empty($rescheck)) {
- 
-
-        $reservation = $this->rese;;
-        $reservation->user_id =Session::get('user_id');
-        $reservation->event_id = $request->event_id;
-        
-        $reservation->fname = $request->fname;
-        $reservation->lname = $request->lname;
-
-        $reservation->email = ($request->email === 'new') ? $request->new_email : $request->email;
-
-        $reservation->save();
-
-        if ($reservation) {
-            $event = $this->event->find($request->event_id);
-            $event->increment('total_reservations');
-        }
-        
-        return redirect()->back()->with('success', 'Reservation successful.');
-    }
+    $event = $this->event->find($request->event_id);
+    $res = $event->total_reservations;
+    $place = $event->total_places ;
     
-    else {
-        return redirect()->back()->with('error', 'You have already reserved this event.');
+    $check = $place-$res;
+
+    if($check > $request->ntecket){
+
+        $count = 0; 
+        while($count < $request->ntecket){    
+
+            $reservation = New Reservation;
+            $reservation->user_id =Session::get('user_id');
+            $reservation->event_id = $request->event_id;
+            
+            $reservation->fname = $request->fname;
+            $reservation->lname = $request->lname;
+
+            $reservation->email = ($request->email === 'new') ? $request->new_email : $request->email;
+
+            $reservation->save();
+
+            if ($reservation) {
+                $event = $this->event->find($request->event_id);
+                $event->increment('total_reservations');
+            }
+            $count++ ;
+        }
+
+        return redirect()->back()->with('success', 'Reservation successful To.');
     }
+    else return redirect()->back()->with('success', 'Feild');
+  
 }
 
 
@@ -132,6 +138,10 @@ public function accept($id){
     $reservation = $this->rese->find($id); 
     $reservation->status = 1;
     $reservation->save(); 
+
+    Mail::to($reservation->email)->send(new ReservationAccepted($reservation->fname , $reservation->lname));
+
+
     return redirect()->back()->with('success', 'Reservation accepted successfully');
 }
 

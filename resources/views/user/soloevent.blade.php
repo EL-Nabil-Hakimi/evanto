@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Hello World</title>
+    <title>Evento</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -82,17 +82,18 @@
             {{ Session::get('error') }}
         </div>
     @endif
-
+    
     <div class="row">
         <div class="col-12">
             <article class="events-news-post">
+                <p class="text-success"><a><i class="bi bi-hourglass-split"></i>{{$event->created_at->diffForHumans()}}</a></p>
                 <header class="entry-header">
                     <h2 class="entry-title"><a>{{$event->title}}</a></h2>
 
                     <div class="entry-meta flex align-items-center">
-                        <div class="posted-author"><a href="#">{{$admin->name}}</a></div>
+                        <div class="posted-author"><a href="#">{{$event->user->name}}</a></div>
 
-                        <div class="post-comments"><a href="#">{{$ctgr->name}}</a></div>
+                        <div class="post-comments">Categoty : <a href="#">{{$event->category->name}}</a></div>
                     </div>
                 </header>
 
@@ -119,7 +120,7 @@
                         @if($event->price == 0)
                             <li><i class="bi bi-currency-dollar"></i> Price: Free</li>
                         @else 
-                            <li><i class="bi bi-currency-dollar"></i> Price: {{ $event->price }}</li>
+                            <li><i class="bi bi-currency-dollar"></i> Price: {{ $event->price }} DH</li>
                         @endif
 
                         <li><i class="bi bi-people"></i> Number of Places: {{ $event->total_places }}</li>
@@ -200,6 +201,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">    
+                <?php $user = session('user_id') ?>
                 @if($user != null)
 
                 <form action="/create" method="post">
@@ -213,10 +215,16 @@
                         <label for="lname" class="form-label">Last Name</label>
                         <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter last name" required>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="lname" class="form-label">Number Tecket</label>
+                        <input type="number" class="form-control" name="ntecket" id="lname" placeholder="Numebr tecket" required>
+                    </div>
+
                     <label for="lname" class="form-label">Email for ticket</label>
                     <div class="mb-3 form-check">
-                        <input type="radio" class="form-check-input" id="existingEmail" name="email" value="{{$user->email}}" required>
-                        <label class="form-check-label" for="existingEmail">{{$user->email}}</label>
+                        <input type="radio" class="form-check-input" id="existingEmail" name="email" value="{{$event->user->email}}" required>
+                        <label class="form-check-label" for="existingEmail">{{$event->user->email}}</label>
                     </div>
                     <div class="mb-3 form-check">
                         <input type="radio" class="form-check-input" id="newEmail" name="email" value="new" required>

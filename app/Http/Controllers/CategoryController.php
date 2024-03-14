@@ -73,7 +73,7 @@ class CategoryController extends Controller
 
         if ($textsearch != 0) {
             $events->where('title', 'like', '%' . $textsearch . '%')
-            ->orWhere('description', 'like', '%'. $textsearch. '%');;
+            ->orWhere('description', 'like', '%'. $textsearch. '%');
         }
         $events = $events->latest()->get();
 

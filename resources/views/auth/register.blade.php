@@ -64,7 +64,7 @@
           <div class="col-md-12">
             <div class="form-block mx-auto">
               <div class="text-center mb-1">
-                <h3 class="text-uppercase">Register to <strong>Event</strong></h3>
+                <h3 class="text-uppercase">Register  to <a style="color: rgb(0, 85, 197) ; text-decoration:none" href="/index" title="Go to home"><strong>Event</strong></a></h3>
               </div>
               <form action="/signup" method="post">
                 @csrf

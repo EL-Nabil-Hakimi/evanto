@@ -16,7 +16,7 @@
 
                 <table class="table align-middle mb-0 bg-white">
                     <thead class="bg-light">
-                        @if ($count > 0)
+                        @if ($users->count() > 0)
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -59,8 +59,7 @@
                                         <p class="mb-0">{{ $user->role->name }}</p>
                                     </div>
                                 </td>
-                                
-                                
+                                                               
                                 
                                 <td>
                                     <p class="text-muted mb-0">{{ $user->created_at->format('d/m/Y') }}</p>

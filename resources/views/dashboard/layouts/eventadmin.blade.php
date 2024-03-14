@@ -5,13 +5,13 @@
 <style>
     #addbtn{
         position: fixed;
-        right: 4em;
-        bottom: 4em;
+        right: 2em;
+        bottom: 2em;
         z-index: 2;
     }
     #addbtn img{
-        width: 5em;
-        height: 5em;
+        width: 4em;
+        height: 4em;
         border-radius: 50%;
         box-shadow: 0px 0px 5px 2px black;
         transition: 0.3s;
@@ -59,7 +59,6 @@
             @endif
 
             <section>
-
                 <div class="container py-5">
 
                 @forelse ($events as $event)
@@ -219,7 +218,7 @@
                                     <strong>Total Places Available:</strong> {{ $event->total_places - $event->total_reservations }}
                                 </div>
                                 <div class="mb-3">
-                                    <strong>Category:</strong> {{ $event->category_name }} 
+                                    <strong>Category:</strong> {{ $event->category->name }} 
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -229,104 +228,7 @@
                     </div>
                 </div>
                 
-                
-                
 
-
-
-
-                  <div class="modal fade" id="EditEmail{{ $event->id }}" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle">Edit Event</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="/EditEvent" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" value="{{$event->id}}" name="id">
-
-                                    <div class="mb-3">
-                                        <label for="title" class="form-label">Title</label>
-                                        <input type="text" class="form-control" name="title" id="title" value="{{$event->title}}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control" name="description" id="description" rows="3" value="{{$event->description}}">{{$event->description}}</textarea>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="location" class="form-label">Location</label>
-                                        <input type="text" class="form-control" name="location" id="location" value="{{$event->location}}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="date" class="form-label">Date</label>
-                                        <input type="date" class="form-control" name="date" id="date" value="{{$event->date}}"  >
-                                    </div>
-                                    <div class="mb-3">
-
-                                        <label for="event_time">Time:</label>
-                                            <input type="time" id="event_time" name="time" class="form-control" value="{{ $event->time }}">
-                                        </div>
-                                    <div class="mb-3">
-                                        <label for="duration" class="form-label">Duration 'min'</label>
-                                        <input type="number" class="form-control" name="duration" id="duration" value="{{$event->duration}}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="price" class="form-label">Price</label>
-                                        <input type="number" class="form-control" name="price" id="price" value="{{$event->price}}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="total_places" class="form-label">Total Places</label>
-                                        <input type="number" class="form-control" name="total_places" id="total_places" value="{{$event->total_places}}">
-                                    </div>
-        
-                                    <div class="mb-3">
-                                        <label for="image" class="form-label">Category</label>
-                                        <select class="form-control" name="category" id="">
-                                            
-                                            <option disabled selected>Categorhy...</option>
-                                            @foreach ($categories as $category)
-                                            @if($category->id == $event->category_idd)
-                                                 <option value="{{$category->id}}" selected>{{$category->name}}</option>
-                                                 @else 
-                                                 <option value="{{$category->id}}" >{{$category->name}}</option>
-                                                 @endif
-
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-
-                                    <div class="mb-3">
-                                        <label for="image" class="form-label">aceeptation</label>
-                                        <select class="form-control" name="acceptation" id="">                                    
-                                            <option disabled selected>Accept...</option> 
-                                            @if($event->acceptation == 0)
-                                                  <option value="0" selected>automatique des réservations</option>    
-                                                  <option value="1" >validation manuelle</option>    
-                                                  @else                               
-                                                  <option value="0">automatique des réservations</option>   
-                                                  <option value="1" selected>validation manuelle</option>    
-                                            @endif
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="image" class="form-label">Image</label>
-                                        <input type="file" class="form-control" name="image" id="image" accept="image/*" value="{{$event->image}}">
-                                    </div>
-                                   
-                                    
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>
-                        </div>
-                    </div>
-                </div>
 
                   @empty
                   <div
@@ -370,88 +272,7 @@
         </div>
 
         <!-- Button trigger modal -->
-        <div class="modal fade" id="AddEvent" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Add Event</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/addevent" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" name="title" id="title" placeholder="Event Title...">
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" name="description" id="description" rows="3" placeholder="Event Description..."></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="location" class="form-label">Location</label>
-                                <input type="text" class="form-control" name="location" id="location" placeholder="Event Location...">
-                            </div>
-                            <div class="mb-3">
-                                <label for="date" class="form-label">Date</label>
-                                <input type="date" class="form-control" name="date" id="date">
-                            </div>
-
-                            <div class="mb-3">
-
-                            <label for="event_time">Time:</label>
-                                <input type="time" id="event_time" name="time" class="form-control">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="duration" class="form-label">Duration 'min'</label>
-                                <input type="number" class="form-control" name="duration" id="duration" placeholder="Event Duration...">
-                            </div>
-                            <div class="mb-3">
-                                <label for="price" class="form-label">Price</label>
-                                <input type="number" class="form-control" name="price" id="price" placeholder="Event Price...">
-                            </div>
-                            <div class="mb-3">
-                                <label for="total_places" class="form-label">Total Places</label>
-                                <input type="number" class="form-control" name="total_places" id="total_places" placeholder="Total Places...">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="image" class="form-label">Category</label>
-                                <select class="form-control" name="category" id="">
-                                    
-                                    <option disabled selected>Categorhy...</option>
-                                    @foreach ($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="image" class="form-label">aceeptation</label>
-                                <select class="form-control" name="acceptation" id="">                                    
-                                    <option disabled selected>Accept...</option>                                   
-                                    <option value="1">automatique des réservations</option>                                  
-                                    <option value="0">validation manuelle</option>                                  
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="image" class="form-label">Image</label>
-                                <input type="file" class="form-control" name="image" id="image" accept="image/*">
-                            </div>
-                           
-                            
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                    </div>
-                </form>
-                </div>
-            </div>
-        </div>
-         
+ 
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {

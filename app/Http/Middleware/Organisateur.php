@@ -24,7 +24,6 @@ class Organisateur
         }
         else
         if($role_id == 2){
-            
             return $next($request);
         }
         else{

@@ -14,7 +14,7 @@
                   <div class="row align-items-start">
                       <div class="col-8">
                           <h5 class="card-title mb-3 fw-semibold">All Reservations</h5>
-                          <h4 class="fw-semibold mb-3">{{$res}}</h4>
+                          <h4 class="fw-semibold mb-3">{{$res->reservations_count}}</h4>
                       </div>
                       <div class="col-4 text-end">
                           <i class="bi bi-people-fill" style="font-size: 2rem;"></i>
