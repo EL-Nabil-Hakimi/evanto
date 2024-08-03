@@ -75,12 +75,14 @@ class CategoryController extends Controller
             $events->where('title', 'like', '%' . $textsearch . '%')
             ->orWhere('description', 'like', '%'. $textsearch. '%');
         }
-        $events = $events->latest()->get();
+        $events = $events->where('status' , 2)->latest()->get();
 
         
         return view('user.search.bycategory', compact('events'));
     }  
 
+
+  
 
 
 }
